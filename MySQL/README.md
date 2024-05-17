@@ -2,9 +2,9 @@
 
 ## Topics covered
 
-### MySQL connection
+### MySQL connection<hr>
 
-#### Install MySQL.
+#### Install MySQL
 
 - Install MySQL of your choice.
 
@@ -67,21 +67,16 @@ FLUSH PRIVILEGES;
 
 ### CRUD Database
 
-#### Create database
-
+- Create database
 ```sql
 CREATE DATABASE test_company;
 CREATE DATABASE test_no_access_company; -- only admin have access, not developer, app and analyst
 ```
-
-#### Switch between databases
-
+- Switch between databases
 ```sql
 USE test_company;
 ```
-
-#### Delete database
-
+- Delete database
 ```sql
 DROP DATABASE test_company;
 DROP DATABASE test_no_access_company;
