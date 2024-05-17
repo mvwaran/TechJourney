@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: "spring-data-jpa"
+  h2:
+    console:
+      enabled: true
+  datasource:
+    url: "jdbc:h2:mem:testdb;DATABASE_TO_UPPER=false"
+  jpa:
+    show-sql: true
+    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: "update" # This property tells Hibernate to update the database schema automatically based on your entity classes. If tables don't exist, Hibernate will create them. Note that this approach doesn't use "IF NOT EXISTS" directly but achieves a similar effect by creating the tables if they are missing.
