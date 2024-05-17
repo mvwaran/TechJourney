@@ -10,7 +10,7 @@ FLUSH PRIVILEGES;
 -- DROP ROLE 'admin'@'%';
 
 /*======================================================================================================================
- Using ROOT create and user and assign admin role.
+ Using ROOT, create user and assign admin role.
  Create an user and assign admin role to him
  */
 
