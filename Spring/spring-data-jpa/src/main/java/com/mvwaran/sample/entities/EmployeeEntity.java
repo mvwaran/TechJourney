@@ -1,15 +1,14 @@
 package com.mvwaran.sample.entities;
 
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Table(name = "employees")
-@Getter
-@Setter
+@NoArgsConstructor
+@Data
 @Builder
+@AllArgsConstructor
 public class EmployeeEntity {
 
     @Id
@@ -17,12 +16,9 @@ public class EmployeeEntity {
     private Integer id;
 
     private String firstName;
-
     private String lastName;
 
-    private String email;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "project_id", referencedColumnName = "id")
-    private ProjectEntity projectEntity;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "employeeEntity")
+    @PrimaryKeyJoinColumn
+    private AddressEntity addressEntity;
 }

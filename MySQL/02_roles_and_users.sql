@@ -1,14 +1,19 @@
-# Create admin role first with all grant, ROOT should only be used one time for creating admin
-# Subsequent action should only be done by admin or other roles/users, not root
+/*======================================================================================================================
+ Using ROOT create ADMIN role.
+  Create admin role first with all grant, ROOT should only be used one time for creating admin
+  Subsequent action should only be done by admin or other roles/users, not root
+ */
 CREATE ROLE 'admin'@'%';
 GRANT ALL PRIVILEGES ON *.* TO 'admin'@'%';
 GRANT CREATE USER, CREATE ROLE, GRANT OPTION ON *.* TO 'admin'@'%'; # Above grant is not enough for creating role and user
 FLUSH PRIVILEGES;
-# DROP ROLE 'admin'@'%';
+-- DROP ROLE 'admin'@'%';
 
-#-----------------------------------------------------------------------------------------------------------------------
+/*======================================================================================================================
+ Using ROOT create and user and assign admin role.
+ Create an user and assign admin role to him
+ */
 
-# Create an user and assign admin role to him
 CREATE USER 'mvwaran'@'%' IDENTIFIED BY 'mvwaran123';
 GRANT 'admin'@'%' TO 'mvwaran'@'%';
 SET DEFAULT ROLE 'admin'@'%' TO 'mvwaran'@'%';
@@ -19,21 +24,25 @@ GRANT 'admin'@'%' TO 'kumar'@'%';
 SET DEFAULT ROLE 'admin'@'%' TO 'kumar'@'%';
 FLUSH PRIVILEGES;
 
-#-----------------------------------------------------------------------------------------------------------------------
+/*======================================================================================================================
+ With Admin user create additional roles and users.
+ Sign in as mvwaran and start creating further roles
+ */
 
-# Sign in as mvwaran and start creating further roles
 CREATE ROLE 'developer';
 GRANT ALL PRIVILEGES ON test_company.* TO 'developer'@'%';
 CREATE ROLE 'app';
 GRANT ALL PRIVILEGES ON test_company.* TO 'app'@'%';
 CREATE ROLE 'analyst';
 GRANT SELECT ON test_company.* TO 'analyst'@'%'; # analyst has only read access
-# REVOKE DELETE ON test_company.* FROM 'manager'@'%';
+-- REVOKE DELETE ON test_company.* FROM 'manager'@'%';
 FLUSH PRIVILEGES;
 
-#-----------------------------------------------------------------------------------------------------------------------
+/*======================================================================================================================
+ Assign roles to user.
+ Create further users / app
+ */
 
-# Create further users / app
 CREATE USER 'john'@'%' IDENTIFIED BY 'john123';
 GRANT 'developer'@'%' TO 'john'@'%';
 SET DEFAULT ROLE 'developer'@'%' TO 'john'@'%';

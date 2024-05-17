@@ -1,4 +1,4 @@
-package com.mvwaran.sample.models;
+package com.mvwaran.sample.dto;
 
 import lombok.Builder;
 import lombok.Data;

@@ -1,18 +1,23 @@
-# MySQL setup
+# MySQL
 
-## Installation
+## Topics covered
 
-- User Docker Desktop. Refer Docker tutorial.
-
-## Connect to mysql
-
-`mysql -h localhost -P 3306 -u root -p`
-
-- `-p` prompts for password
-
-## Q/A
-
-1. What is Shared primary key ?
-   - Each employee has an address tagged to him, which is going to be unique for each employee, so instead of generating primary key for each address and referencing it with new column in employees table, the primary key of employees table can be also kept as primary key to address table using foreign key constraints.
-   - Refer address table creation & insertion & selection query
-2. 
+- MySQL connection in `00_connections.txt`
+- Utilities command in `01_utils.sql`
+- Create ROLES and USERS in `02_roles_and_users.sql`
+   - Using ROOT create ADMIN role
+   - Using ROOT create and user and assign admin role
+   - With Admin user create additional roles and users
+   - Assign roles to user
+- Database commands in `03_database.sql`
+- Tables in `04_tables.sql`
+   - CREATE simple table
+   - ALTER table by introducing new column with foreign key constraint
+   - CREATE table but with Shared primary key.
+   - DROP table
+- CRUD queries in `05_data.sql`
+  - Simple INSERT statement
+  - Shared primary key between two tables `Address` and `Employees`.
+    - INSERT query with shared primary key 
+    - SELECT query joining 2 tables with Shared primary key
+  - SELECT query joining 3 tables

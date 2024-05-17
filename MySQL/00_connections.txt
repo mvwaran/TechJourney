@@ -1,0 +1,13 @@
+Connect to mysql:
+-----------------
+
+Command: mysql -h localhost -P 3306 -u root -p
+
+-h for host name
+-P for port
+-u for username
+-p prompts for password
+
+More commands:
+-------------
+mysql -h localhost -P 3306 -u root -p"test123" (To give password inline)

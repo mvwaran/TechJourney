@@ -1,2 +1,9 @@
-INSERT INTO projects (id, project_name) VALUES (101, 'ABC project');
-INSERT INTO employees (id, first_name, last_name, email, project_id) VALUES (101, 'John', 'Doe', 'john.doe@example.com', 101);
+INSERT INTO employees (id, first_name, last_name) VALUES (1, 'Mike', 'Hussey');
+
+--INSERT INTO roles (name) VALUES ('manager');
+--INSERT INTO roles (name) VALUES ('hr');
+--INSERT INTO roles (name) VALUES ('developer');
+
+INSERT INTO employees (id, first_name, last_name) VALUES (2, 'Adam', 'Lee');
+INSERT INTO address (id, door_no, street, area, city, state, country, pin_code)
+    VALUES (2, '1234', 'Rkm street', 'Playfield', 'Anytowm', 'Anystate', 'Anycountry', '123456');

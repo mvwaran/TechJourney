@@ -1,24 +1,35 @@
-# Create roles table
+/*======================================================================================================================
+ CREATE simple table
+ */
+
 CREATE TABLE roles (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(50) NOT NULL
 );
 
-#-----------------------------------------------------------------------------------------------------------------------
+/*======================================================================================================================
+ ALTER table by introducing new column with foreign key constraint
+ */
 
-# Create table employees with only basic details
+-- Create table employees with only basic details
 CREATE TABLE employees (
     id INT AUTO_INCREMENT PRIMARY KEY,
     first_name VARCHAR(50) NOT NULL,
     last_name VARCHAR(50) NOT NULL
 );
 
-# Update employees table later with role information column
+-- Update employees table later with role information column
 ALTER TABLE employees
 ADD COLUMN role_id INT,
 ADD FOREIGN KEY (role_id) REFERENCES roles(id);
 
-#----------------------------------------------------------------------------------------------------------------------
+-- Modify the column to have NOT NULL constraint for role_id
+ALTER TABLE employees
+MODIFY COLUMN role_id INT NOT NULL;
+
+/*======================================================================================================================
+ CREATE table but with Shared primary key.
+ */
 
 # Create address table
 # Below table uses shared primary key where address.id is employees.id
@@ -34,6 +45,8 @@ CREATE TABLE address (
     FOREIGN KEY (id) REFERENCES employees(id)
 );
 
-#-----------------------------------------------------------------------------------------------------------------------
+/*======================================================================================================================
+ DROP table
+ */
 
 # DROP TABLE address;

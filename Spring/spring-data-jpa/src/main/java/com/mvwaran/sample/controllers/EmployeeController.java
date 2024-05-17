@@ -1,6 +1,6 @@
 package com.mvwaran.sample.controllers;
 
-import com.mvwaran.sample.models.Employee;
+import com.mvwaran.sample.dto.Employee;
 import com.mvwaran.sample.services.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
