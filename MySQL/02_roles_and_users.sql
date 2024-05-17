@@ -6,11 +6,20 @@ GRANT CREATE USER, CREATE ROLE, GRANT OPTION ON *.* TO 'admin'@'%'; # Above gran
 FLUSH PRIVILEGES;
 # DROP ROLE 'admin'@'%';
 
+#-----------------------------------------------------------------------------------------------------------------------
+
 # Create an user and assign admin role to him
 CREATE USER 'mvwaran'@'%' IDENTIFIED BY 'mvwaran123';
 GRANT 'admin'@'%' TO 'mvwaran'@'%';
 SET DEFAULT ROLE 'admin'@'%' TO 'mvwaran'@'%';
 FLUSH PRIVILEGES;
+
+CREATE USER 'kumar'@'%' IDENTIFIED BY 'kumar123';
+GRANT 'admin'@'%' TO 'kumar'@'%';
+SET DEFAULT ROLE 'admin'@'%' TO 'kumar'@'%';
+FLUSH PRIVILEGES;
+
+#-----------------------------------------------------------------------------------------------------------------------
 
 # Sign in as mvwaran and start creating further roles
 CREATE ROLE 'developer';
@@ -21,6 +30,8 @@ CREATE ROLE 'analyst';
 GRANT SELECT ON test_company.* TO 'analyst'@'%'; # analyst has only read access
 # REVOKE DELETE ON test_company.* FROM 'manager'@'%';
 FLUSH PRIVILEGES;
+
+#-----------------------------------------------------------------------------------------------------------------------
 
 # Create further users / app
 CREATE USER 'john'@'%' IDENTIFIED BY 'john123';
