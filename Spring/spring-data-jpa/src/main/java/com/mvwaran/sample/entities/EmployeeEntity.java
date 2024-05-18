@@ -12,13 +12,17 @@ import lombok.*;
 public class EmployeeEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private String firstName;
     private String lastName;
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "employeeEntity")
+    @OneToOne(mappedBy = "employeeEntity", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     private AddressEntity addressEntity;
+
+    @OneToOne
+    @JoinColumn(name = "role_id", referencedColumnName = "id")
+    private RoleEntity roleEntity;
 }

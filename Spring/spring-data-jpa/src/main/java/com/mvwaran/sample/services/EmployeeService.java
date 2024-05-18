@@ -2,11 +2,13 @@ package com.mvwaran.sample.services;
 
 import com.mvwaran.sample.dto.Address;
 import com.mvwaran.sample.dto.Employee;
-import com.mvwaran.sample.dto.Project;
+import com.mvwaran.sample.dto.EmployeeRequest;
+import com.mvwaran.sample.dto.Role;
 import com.mvwaran.sample.entities.AddressEntity;
 import com.mvwaran.sample.entities.EmployeeEntity;
-import com.mvwaran.sample.entities.ProjectEntity;
+import com.mvwaran.sample.entities.RoleEntity;
 import com.mvwaran.sample.repositories.EmployeeRepository;
+import com.mvwaran.sample.repositories.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +20,9 @@ public class EmployeeService {
     @Autowired
     private EmployeeRepository employeeRepository;
 
+    @Autowired
+    private RoleRepository roleRepository;
+
     public List<Employee> readAll() {
         return employeeRepository.findAll()
                 .stream()
@@ -26,46 +31,42 @@ public class EmployeeService {
                         .firstName(employeeEntityEntity.getFirstName())
                         .lastName(employeeEntityEntity.getLastName())
                         .address(employeeEntityEntity.getAddressEntity() != null ? Address.builder()
-                                .doorNo(employeeEntityEntity.getAddressEntity().getDoorNo())
-                                .street(employeeEntityEntity.getAddressEntity().getStreet())
                                 .area(employeeEntityEntity.getAddressEntity().getArea())
-                                .city(employeeEntityEntity.getAddressEntity().getCity())
-                                .state(employeeEntityEntity.getAddressEntity().getState())
-                                .country(employeeEntityEntity.getAddressEntity().getCountry())
                                 .pinCode(employeeEntityEntity.getAddressEntity().getPinCode())
                                 .build() : null)
+                        .role(Role.builder()
+                                .id(employeeEntityEntity.getRoleEntity().getId())
+                                .name(employeeEntityEntity.getRoleEntity().getName())
+                                .build())
                         .build())
                 .toList();
     }
 
-    public Employee create(Employee employee) {
+    public Employee create(EmployeeRequest employeeRequest) {
+        RoleEntity roleEntity = roleRepository.findById(employeeRequest.getRoleId()).get();
         var employeeEntity = EmployeeEntity.builder()
-                .firstName(employee.getFirstName())
-                .lastName(employee.getLastName())
-                .addressEntity(employee.getAddress() != null ? AddressEntity.builder()
-                        .doorNo(employee.getAddress().getDoorNo())
-                        .street(employee.getAddress().getStreet())
-                        .area(employee.getAddress().getArea())
-                        .city(employee.getAddress().getCity())
-                        .state(employee.getAddress().getState())
-                        .country(employee.getAddress().getCountry())
-                        .pinCode(employee.getAddress().getPinCode())
+                .firstName(employeeRequest.getFirstName())
+                .lastName(employeeRequest.getLastName())
+                .addressEntity(employeeRequest.getAddress() != null ? AddressEntity.builder()
+                        .area(employeeRequest.getAddress().getArea())
+                        .pinCode(employeeRequest.getAddress().getPinCode())
                         .build() : null)
+                .roleEntity(roleEntity)
                 .build();
+        employeeEntity.getAddressEntity().setEmployeeEntity(employeeEntity);
         var updatedEmployeeEntity = employeeRepository.save(employeeEntity);
         return Employee.builder()
                 .id(updatedEmployeeEntity.getId())
                 .firstName(updatedEmployeeEntity.getFirstName())
                 .lastName(updatedEmployeeEntity.getLastName())
                 .address(updatedEmployeeEntity.getAddressEntity() != null ? Address.builder()
-                        .doorNo(updatedEmployeeEntity.getAddressEntity().getDoorNo())
-                        .street(updatedEmployeeEntity.getAddressEntity().getStreet())
                         .area(updatedEmployeeEntity.getAddressEntity().getArea())
-                        .city(updatedEmployeeEntity.getAddressEntity().getCity())
-                        .state(updatedEmployeeEntity.getAddressEntity().getState())
-                        .country(updatedEmployeeEntity.getAddressEntity().getCountry())
                         .pinCode(updatedEmployeeEntity.getAddressEntity().getPinCode())
                         .build() : null)
+                .role(Role.builder()
+                        .id(updatedEmployeeEntity.getRoleEntity().getId())
+                        .name(updatedEmployeeEntity.getRoleEntity().getName())
+                        .build())
                 .build();
     }
 }

@@ -21,7 +21,7 @@ spring:
     console:
       enabled: false
   datasource:
-    url: "jdbc:mysql://localhost:3306/test_company"
+    url: "jdbc:mysql://localhost:3306/test_organization"
     username: "service_account"
     password: "service_account123"
     driver-class-name: "com.mysql.cj.jdbc.Driver"

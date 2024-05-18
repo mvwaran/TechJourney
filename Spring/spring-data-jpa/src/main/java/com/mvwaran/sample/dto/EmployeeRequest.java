@@ -5,10 +5,9 @@ import lombok.Data;
 
 @Data
 @Builder
-public class Employee {
-    private Integer id;
+public class EmployeeRequest {
     private String firstName;
     private String lastName;
     private Address address;
-    private Role role;
+    private String roleId;
 }
