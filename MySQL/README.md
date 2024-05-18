@@ -2,4 +2,4 @@
 
 ## Cheatsheets
 
-Refer to the [file](./Cheatsheets.md)
+Refer to the [file](./CHEATSHEETS.md)
