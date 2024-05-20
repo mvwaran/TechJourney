@@ -1,9 +1,7 @@
 package com.mvwaran.sample.services;
 
-import com.mvwaran.sample.dto.Address;
-import com.mvwaran.sample.dto.Employee;
-import com.mvwaran.sample.dto.EmployeeRequest;
-import com.mvwaran.sample.dto.Role;
+import com.mvwaran.sample.constants.AssetCategory;
+import com.mvwaran.sample.dto.*;
 import com.mvwaran.sample.entities.AddressEntity;
 import com.mvwaran.sample.entities.EmployeeEntity;
 import com.mvwaran.sample.entities.RoleEntity;
@@ -38,6 +36,13 @@ public class EmployeeService {
                                 .id(employeeEntityEntity.getRoleEntity().getId())
                                 .name(employeeEntityEntity.getRoleEntity().getName())
                                 .build())
+                        .assets(employeeEntityEntity.getAssetEntities().stream()
+                                .map(assetEntity -> Asset.builder()
+                                        .id(assetEntity.getId())
+                                        .category(AssetCategory.valueOf(assetEntity.getCategory()))
+                                        .name(assetEntity.getName())
+                                        .build())
+                                .toList())
                         .build())
                 .toList();
     }

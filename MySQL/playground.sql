@@ -52,8 +52,10 @@ SET DEFAULT ROLE 'app'@'%' TO 'service_account'@'%';
 FLUSH PRIVILEGES;
 
 -- Create databases
-CREATE DATABASE test_organization;
 CREATE DATABASE test_no_access_organization;
+CREATE DATABASE test_organization;
+
+USE test_organization;
 
 -- Create tables
 CREATE TABLE roles (
@@ -67,13 +69,21 @@ CREATE TABLE employees (
     last_name VARCHAR(50) NOT NULL,
     role_id VARCHAR(100) NOT NULL,
     FOREIGN KEY (role_id) REFERENCES roles(id)
-);
+) AUTO_INCREMENT = 100000;
 
 CREATE TABLE address (
     id INT AUTO_INCREMENT PRIMARY KEY,
     area VARCHAR(50) NOT NULL,
     pin_code VARCHAR(6) NOT NULL,
     FOREIGN KEY (id) REFERENCES employees(id)
+);
+
+CREATE TABLE assets (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    category VARCHAR(10) NOT NULL,
+    emp_id INT NOT NULL,
+    FOREIGN KEY (emp_id) REFERENCES employees(id)
 );
 
 -- Data insertion
@@ -84,7 +94,10 @@ INSERT INTO roles (id, name) VALUES ('developer', 'Developer');
 INSERT INTO employees (first_name, last_name, role_id) VALUES ('Adam', 'Lee', 'hr');
 SET @employee_id = LAST_INSERT_ID(); -- Shared primary key, so use employee table primary key in address table
 INSERT INTO address (id, area, pin_code) VALUES (@employee_id, 'Bodi', '123456');
+INSERT INTO assets(name, category, emp_id) VALUES ('HP Pavilion 15', 'LAPTOP', @employee_id);
+INSERT INTO assets(name, category, emp_id) VALUES ('HP Pavilion Keyboard 1', 'KEYBOARD', @employee_id);
 
 INSERT INTO employees (first_name, last_name, role_id) VALUES ('John', 'Lee', 'manager');
 SET @employee_id = LAST_INSERT_ID(); -- Shared primary key, so use employee table primary key in address table
 INSERT INTO address (id, area, pin_code) VALUES (@employee_id, 'Theni', '453567');
+INSERT INTO assets(name, category, emp_id) VALUES ('Dell Mouse 13', 'MOUSE', 100001);

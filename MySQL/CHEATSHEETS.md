@@ -60,7 +60,7 @@ CREATE TABLE employees (
     last_name VARCHAR(50) NOT NULL,
     role_id VARCHAR(100) NOT NULL,
     FOREIGN KEY (role_id) REFERENCES roles(id)
-);
+) AUTO_INCREMENT = 100000;
 ```
 
 ## Alter table

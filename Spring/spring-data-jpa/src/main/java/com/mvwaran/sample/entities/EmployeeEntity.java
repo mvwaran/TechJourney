@@ -3,6 +3,8 @@ package com.mvwaran.sample.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "employees")
 @NoArgsConstructor
@@ -25,4 +27,7 @@ public class EmployeeEntity {
     @OneToOne
     @JoinColumn(name = "role_id", referencedColumnName = "id")
     private RoleEntity roleEntity;
+
+    @OneToMany(mappedBy = "employeeEntity")
+    private List<AssetEntity> assetEntities;
 }
