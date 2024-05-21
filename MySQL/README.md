@@ -1,6 +1,6 @@
-# MySQL
+# MySQL Journey
 
-## Journey
+## Problem statement
 
 The goal is to manage employees for an IT organization.
 

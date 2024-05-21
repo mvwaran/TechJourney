@@ -1,4 +1,4 @@
-# Spring data JPA with MySQL support
+# Spring data JPA with MySQL support Journey
 
 ## Project Creation
 
