@@ -26,8 +26,7 @@ public class EmployeeService {
                 .stream()
                 .map(employeeEntityEntity -> Employee.builder()
                         .id(employeeEntityEntity.getId())
-                        .firstName(employeeEntityEntity.getFirstName())
-                        .lastName(employeeEntityEntity.getLastName())
+                        .name(employeeEntityEntity.getName())
                         .address(employeeEntityEntity.getAddressEntity() != null ? Address.builder()
                                 .area(employeeEntityEntity.getAddressEntity().getArea())
                                 .pinCode(employeeEntityEntity.getAddressEntity().getPinCode())
@@ -50,8 +49,7 @@ public class EmployeeService {
     public Employee create(EmployeeRequest employeeRequest) {
         RoleEntity roleEntity = roleRepository.findById(employeeRequest.getRoleId()).get();
         var employeeEntity = EmployeeEntity.builder()
-                .firstName(employeeRequest.getFirstName())
-                .lastName(employeeRequest.getLastName())
+                .name(employeeRequest.getName())
                 .addressEntity(employeeRequest.getAddress() != null ? AddressEntity.builder()
                         .area(employeeRequest.getAddress().getArea())
                         .pinCode(employeeRequest.getAddress().getPinCode())
@@ -62,8 +60,7 @@ public class EmployeeService {
         var updatedEmployeeEntity = employeeRepository.save(employeeEntity);
         return Employee.builder()
                 .id(updatedEmployeeEntity.getId())
-                .firstName(updatedEmployeeEntity.getFirstName())
-                .lastName(updatedEmployeeEntity.getLastName())
+                .name(updatedEmployeeEntity.getName())
                 .address(updatedEmployeeEntity.getAddressEntity() != null ? Address.builder()
                         .area(updatedEmployeeEntity.getAddressEntity().getArea())
                         .pinCode(updatedEmployeeEntity.getAddressEntity().getPinCode())

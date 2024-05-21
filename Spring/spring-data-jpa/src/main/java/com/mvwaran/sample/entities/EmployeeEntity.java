@@ -17,8 +17,7 @@ public class EmployeeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private String firstName;
-    private String lastName;
+    private String name;
 
     @OneToOne(mappedBy = "employeeEntity", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn

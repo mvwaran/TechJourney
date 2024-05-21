@@ -9,8 +9,7 @@ import java.util.List;
 @Builder
 public class Employee {
     private Integer id;
-    private String firstName;
-    private String lastName;
+    private String name;
     private Address address;
     private Role role;
     private List<Asset> assets;
