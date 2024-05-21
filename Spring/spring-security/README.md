@@ -8,8 +8,9 @@
 - Created dashboard pages and tested by commenting out Spring Security.
   - Created `@Controller` (because `@RestController` won't work) and returned views based on URL.
   - Created `dashboard.html` inside `resources/templates` folder and returned it in the `@Controller` class.
-  - Created `dashboard_admin.html` inside `resources/templates` folder and returned it in the `@Controller` class.
-  - Created `dashboard_guest.html` inside `resources/templates` folder and returned it in the `@Controller` class.
+  - Created `dashboard_developer.html` inside `resources/templates` folder and returned it in the `@Controller` class.
+  - Created `dashboard_hr.html` inside `resources/templates` folder and returned it in the `@Controller` class.
+  - Created `dashboard_manager.html` inside `resources/templates` folder and returned it in the `@Controller` class.
 - Made the above `dashboard.html` the landing page after login.
   - Created `SecurityConfig` with a custom `SecurityFilterChain` bean.
   - Made all URLs authenticated except `/login`.
@@ -36,9 +37,9 @@
 ### Database Based Authentication
 
 - Upgraded from In-Memory based, as the credentials were hardcoded and users were not expandable.
-- Used H2 as the database, so completed the H2 setup.
+- Used MySQL as the database, to align with [MySQL](../../MySQL) folder.
 - Changed project context from normal users to employees; going forward, login happens via employee ID, not username. Adjusted `usernameParameter` accordingly.
-- Created `EmployeeEntity` entity and `EmployeeRepository` DAO.
+- Created `EmployeeEntity` entity and `EmployeeRepository` DAO, along with `RoleEntity`. 
 - Commented out the in-memory based `UserDetailsService` bean and created a new class `FromDatabaseUserDetailsService` for the bean.
 - The new `FromDatabaseUserDetailsService` connects to the database and creates a `UserDetails` class.
-- To permit access to `/h2-console`, customized the `webSecurityCustomizer` bean.
+- To permit access to `/h2-console`, customized the `webSecurityCustomizer` bean, if H2 is used.

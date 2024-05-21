@@ -2,23 +2,23 @@
 
 ## Journey
 
-- Created project using spring initializer with MySQL library.
-- H2 is ignored, because this project is aligned with [MySQL Journey](../../MySQL/README.md).
-- Goal of this project is employee management in an organization.
+- Created a project using Spring Initializer with the MySQL library.
+- H2 is ignored because this project aligns with the [MySQL Journey](../../MySQL/README.md).
+- The goal of this project is employee management in an organization.
 - **Simple entity**
-  - First created `EmployeeEntity` class and `EmployeeRepsitory` DAO with basic details like id, first name and lastname.
-  - Created REST API to read all employees in `EmployeeController` and `EmployeeService` which queries for all employees.
+  - First, created the `EmployeeEntity` class and `EmployeeRepository` DAO with basic details like id, password, and name. 
+  - Created a REST API to read all employees in `EmployeeController` and `EmployeeService` which queries for all employees.
 - **`@OneToOne` mapping with Shared primary key**
-  - Because address it unique for each employee, better to have employee table primary key as primary key to address table, so flow becomes bidirectional.
-  - Created an `AddressEntity`, here the primary key of `AddressEntity` is the primary key of `EmployeeEntity`. This is why it is called **Shared primary key**.
-  - `@MapsId` is used in `AddressEntity` to specify that the `AddressEntity` primary key will be the same as the `EmployeeEntity` primary key.
-  - Similarly `@PrimaryKeyJoinColumn` is used in `EmployeeEntity` to specify that the primary key of the `AddressEntity` is also a foreign key referencing the primary key of the `EmployeeEntity`.
-  - `@JoinColumn` will be used in **owning** class which contains foreign key and `mappedBy` will be used in the non-owning class.
-  - To test it along with read all employees API, create employee API is also created. In `EmployeeService` save JPA method is used to save employee.
-  - While creating `EmployeeEntity` object, `AddressEntity` object can also been set. But note down that if you set `AddressEntity` then `employeeEntity.getAddressEntity().setEmployeeEntity(employeeEntity);` code is mandatory.
-  - Because it is bidirectional employee should refer address & address should refer employee.
+  - Since each employee has a unique address, it's better to have the employee table's primary key as the primary key for the address table, making the flow bidirectional.
+  - Created an `AddressEntity`, where the primary key of `AddressEntity` is the primary key of `EmployeeEntity`. This is known as a **shared primary key**.
+  - Used `@MapsId` in `AddressEntity` to specify that its primary key will be the same as the `EmployeeEntity` primary key.
+  - Similarly, used `@PrimaryKeyJoinColumn` in `EmployeeEntity` to specify that the primary key of the `AddressEntity` is also a foreign key referencing the primary key of the `EmployeeEntity`.
+  - `@JoinColumn` is used in the **owning** class that contains the foreign key, while `mappedBy` is used in the non-owning class.
+  - To test this along with the read-all-employees API, a create-employee API is also created. In `EmployeeService`, the save JPA method is used to save an employee.
+  - While creating an `EmployeeEntity` object, an `AddressEntity` object can also be set. Note that if you set `AddressEntity`, then `employeeEntity.getAddressEntity().setEmployeeEntity(employeeEntity);` is mandatory.
+  - Because it is bidirectional, the employee should refer to the address and the address should refer to the employee.
 - **`@OneToOne` mapping with a foreign key**
-  - Each employee have a role assigned, here employee depends on role, but role has no relation with employee, so this is unidirectional flow.
-  - Created an `RoleEntity` but this class has no `EmployeeEntity` mapping, but the `RoleEntity` mapping is done in `EmployeeEntity` because employees table has role_id column.
-  - Because the `EmployeeEntity` table has foreign key, use `@JoinColumn` and reference it to `RoleEntity` class.
-  - No need of `mappedBy` here.
+  - Each employee has a role assigned. Here, the employee depends on the role, but the role has no relation with the employee, making this a unidirectional flow.
+  - Created a `RoleEntity`, but this class has no `EmployeeEntity` mapping. The `RoleEntity` mapping is done in `EmployeeEntity` because the employees table has a `role_id` column.
+  - Since the `EmployeeEntity` table has a foreign key, use `@JoinColumn` and reference it to the `RoleEntity` class.
+  - No need for `mappedBy` here.
