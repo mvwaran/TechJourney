@@ -5,9 +5,9 @@
 # DROP USER analyst;
 # DROP USER app;
 # DROP USER developer;
-# DROP USER john;
+# DROP USER karikalan;
 # DROP USER kumar;
-# DROP USER lisa;
+# DROP USER karuvaki;
 # DROP USER mvwaran;
 # DROP USER service_account;
 # DROP TABLE employees;
@@ -40,19 +40,18 @@ SET DEFAULT ROLE 'admin'@'%' TO 'mvwaran'@'%';
 FLUSH PRIVILEGES;
 
 -- Create users in your organization / apps in your organization and set role accordingly.
-CREATE USER 'john'@'%' IDENTIFIED BY 'john123';
-GRANT 'developer'@'%' TO 'john'@'%';
-SET DEFAULT ROLE 'developer'@'%' TO 'john'@'%';
-CREATE USER 'lisa'@'%' IDENTIFIED BY 'lisa123';
-GRANT 'analyst'@'%' TO 'lisa'@'%';
-SET DEFAULT ROLE 'analyst'@'%' TO 'lisa'@'%';
+CREATE USER 'karikalan'@'%' IDENTIFIED BY 'karikalan123';
+GRANT 'developer'@'%' TO 'karikalan'@'%';
+SET DEFAULT ROLE 'developer'@'%' TO 'karikalan'@'%';
+CREATE USER 'karuvaki'@'%' IDENTIFIED BY 'karuvaki123';
+GRANT 'analyst'@'%' TO 'karuvaki'@'%';
+SET DEFAULT ROLE 'analyst'@'%' TO 'karuvaki'@'%';
 CREATE USER 'service_account'@'%' IDENTIFIED BY 'service_account123'; # This is a service account not user
 GRANT 'app'@'%' TO 'service_account'@'%';
 SET DEFAULT ROLE 'app'@'%' TO 'service_account'@'%';
 FLUSH PRIVILEGES;
 
 -- Create databases
-CREATE DATABASE test_no_access_organization;
 CREATE DATABASE test_organization;
 
 USE test_organization;
@@ -65,8 +64,8 @@ CREATE TABLE roles (
 
 CREATE TABLE employees (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    first_name VARCHAR(50) NOT NULL,
-    last_name VARCHAR(50) NOT NULL,
+    password VARCHAR(100) NOT NULL,
+    name VARCHAR(50) NOT NULL,
     role_id VARCHAR(100) NOT NULL,
     FOREIGN KEY (role_id) REFERENCES roles(id)
 ) AUTO_INCREMENT = 100000;
@@ -91,13 +90,15 @@ INSERT INTO roles (id, name) VALUES ('manager', 'Manager');
 INSERT INTO roles (id, name) VALUES ('hr', 'Human Resources');
 INSERT INTO roles (id, name) VALUES ('developer', 'Developer');
 
-INSERT INTO employees (first_name, last_name, role_id) VALUES ('Adam', 'Lee', 'hr');
+-- $2a$10$3N2ZjQ7AFhIyJWLYcIq4O.A9B4LqCsPfv1239YA/RvSCxTxkfaGm2 decodes to neduncheliyan123
+INSERT INTO employees (password, name, role_id) VALUES ('$2a$10$3N2ZjQ7AFhIyJWLYcIq4O.A9B4LqCsPfv1239YA/RvSCxTxkfaGm2', 'Neduncheliyan', 'hr');
 SET @employee_id = LAST_INSERT_ID(); -- Shared primary key, so use employee table primary key in address table
 INSERT INTO address (id, area, pin_code) VALUES (@employee_id, 'Bodi', '123456');
 INSERT INTO assets(name, category, emp_id) VALUES ('HP Pavilion 15', 'LAPTOP', @employee_id);
 INSERT INTO assets(name, category, emp_id) VALUES ('HP Pavilion Keyboard 1', 'KEYBOARD', @employee_id);
 
-INSERT INTO employees (first_name, last_name, role_id) VALUES ('John', 'Lee', 'manager');
+-- $2a$10$Fh8zInGfx5QJL5dPlOk0heLsr.xQYmRyQ7wYRmsxDyLI0Ass1assC decodes to karikalan123
+INSERT INTO employees (password, name, role_id) VALUES ('$2a$10$Fh8zInGfx5QJL5dPlOk0heLsr.xQYmRyQ7wYRmsxDyLI0Ass1assC', 'karikalan', 'manager');
 SET @employee_id = LAST_INSERT_ID(); -- Shared primary key, so use employee table primary key in address table
 INSERT INTO address (id, area, pin_code) VALUES (@employee_id, 'Theni', '453567');
-INSERT INTO assets(name, category, emp_id) VALUES ('Dell Mouse 13', 'MOUSE', 100001);
+INSERT INTO assets(name, category, emp_id) VALUES ('Dell Mouse 13', 'MOUSE', @employee_id);

@@ -12,16 +12,9 @@ import lombok.NoArgsConstructor;
 @Data
 @Builder
 @AllArgsConstructor
-public class EmployeeEntity {
-
+public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
-    private String password;
     private String name;
-
-    @OneToOne
-    @JoinColumn(name = "role_id", referencedColumnName = "id")
-    private RoleEntity roleEntity;
 }

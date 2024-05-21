@@ -1,13 +1,12 @@
 spring:
   application:
     name: spring-security
-  h2:
-    console:
-      enabled: true
   datasource:
-    url: "jdbc:h2:mem:testdb;DATABASE_TO_UPPER=false"
+    url: "jdbc:mysql://localhost:3306/test_organization"
+    username: "service_account"
+    password: "service_account123"
+    driver-class-name: "com.mysql.cj.jdbc.Driver"
   jpa:
     show-sql: true
-    defer-datasource-initialization: true
     hibernate:
-      ddl-auto: "update"
+      ddl-auto: "none"

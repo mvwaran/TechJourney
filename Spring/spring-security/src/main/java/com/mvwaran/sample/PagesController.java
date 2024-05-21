@@ -22,13 +22,18 @@ public class PagesController {
         return "dashboard";
     }
 
-    @GetMapping("/dashboard/admin")
-    public String dashboardAdmin() {
-        return "dashboard_admin";
+    @GetMapping("/dashboard/hr")
+    public String dashboardHr() {
+        return "dashboard_hr";
     }
 
-    @GetMapping("/dashboard/guest")
-    public String dashboardGuest() {
-        return "dashboard_guest";
+    @GetMapping("/dashboard/manager")
+    public String dashboardManager() {
+        return "dashboard_manager";
+    }
+
+    @GetMapping("/dashboard/developer")
+    public String dashboardDeveloper() {
+        return "dashboard_developer";
     }
 }

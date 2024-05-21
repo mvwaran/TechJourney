@@ -21,7 +21,7 @@ public class FromDatabaseUserDetailsService implements UserDetailsService {
             return User.builder()
                     .username(String.valueOf(employee.getId()))
                     .password(employee.getPassword())
-                    .roles(employee.getRole())
+                    .roles(employee.getRoleEntity().getId())
                     .build();
         }
         throw new UsernameNotFoundException("Emp ID " + empId + " not found");
