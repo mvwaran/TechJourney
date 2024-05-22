@@ -1,3 +1,6 @@
+server:
+  port: 8083
+
 spring:
   application:
     name: spring-security
@@ -10,3 +13,8 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: "none"
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
