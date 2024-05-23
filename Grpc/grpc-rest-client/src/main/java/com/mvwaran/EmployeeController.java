@@ -3,6 +3,7 @@ package com.mvwaran;
 import com.mvwaran.grpc.EmployeeServiceGrpc;
 import com.mvwaran.grpc.Empty;
 import com.mvwaran.grpc.GrpcEmployeeListResponse;
+import com.mvwaran.grpc.ReactorEmployeeServiceGrpc;
 import io.grpc.ManagedChannel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,23 +26,20 @@ public class EmployeeController {
     private ManagedChannel managedChannel;
 
     @GetMapping("/grpc/employees/readAll")
-    public List<Employee> readAllGrpc() {
-        EmployeeServiceGrpc.EmployeeServiceBlockingStub employeeServiceBlockingStub =
-                EmployeeServiceGrpc.newBlockingStub(managedChannel);
-        GrpcEmployeeListResponse grpcEmployeeListResponse =
-                employeeServiceBlockingStub.getAllEmployees(Empty.newBuilder().build());
-        return grpcEmployeeListResponse.getEmployeesList()
-                .stream()
+    public Flux<Employee> readAllGrpc() {
+        ReactorEmployeeServiceGrpc.ReactorEmployeeServiceStub employeeServiceStub =
+                ReactorEmployeeServiceGrpc.newReactorStub(managedChannel);
+        return employeeServiceStub.getAllEmployees(Empty.newBuilder().build())
+                .map(GrpcEmployeeListResponse::getEmployeesList)
+                .flatMapMany(Flux::fromIterable)
                 .map(grpcEmployee -> Employee.builder()
                         .id(grpcEmployee.getEmployeeId())
                         .name(grpcEmployee.getEmployeeName())
-                        .build())
-                .collect(Collectors.toList());
+                        .build());
     }
 
     @GetMapping("/rest/employees/readAll")
     public Flux<Employee> readAllRest() {
-        log.info("Tfshdjsnkcms");
         return webClient
                 .get()
                 .uri("/employees/readAll")

@@ -5,18 +5,19 @@ import com.mvwaran.common.EmployeeConfigData;
 import io.grpc.stub.StreamObserver;
 import org.lognet.springboot.grpc.GRpcService;
 import org.springframework.beans.factory.annotation.Autowired;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @GRpcService
-public class GrpcEmployeeService extends EmployeeServiceGrpc.EmployeeServiceImplBase {
+public class GrpcEmployeeService extends ReactorEmployeeServiceGrpc.EmployeeServiceImplBase {
 
     @Autowired
     private EmployeeConfigData employeeConfigData;
 
     @Override
-    public void getAllEmployees(Empty request, StreamObserver<GrpcEmployeeListResponse> responseObserver) {
+    public Mono<GrpcEmployeeListResponse> getAllEmployees(Mono<Empty> request) {
         GrpcEmployeeListResponse response = GrpcEmployeeListResponse.newBuilder()
                 .addAllEmployees(employeeConfigData.getEmployees().stream()
                         .map(employeeFromDb -> GrpcEmployee.newBuilder()
@@ -25,8 +26,6 @@ public class GrpcEmployeeService extends EmployeeServiceGrpc.EmployeeServiceImpl
                                 .build())
                         .collect(Collectors.toList()))
                 .build();
-
-        responseObserver.onNext(response);
-        responseObserver.onCompleted();
+        return Mono.just(response);
     }
 }

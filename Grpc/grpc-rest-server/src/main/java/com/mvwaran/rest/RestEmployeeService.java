@@ -17,7 +17,6 @@ public class RestEmployeeService {
     private EmployeeConfigData employeeConfigData;
 
     public Flux<Employee> readAll() {
-        log.info("Tjhvcadnakls");
         return Flux.fromIterable(employeeConfigData.getEmployees());
     }
 }

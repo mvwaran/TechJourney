@@ -1,15 +1,17 @@
+import org.lognet.springboot.grpc.gradle.ReactiveFeature
+
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '2.7.6'
+	id 'org.springframework.boot' version '3.1.1'
 	id 'io.spring.dependency-management' version '1.1.5'
-	id "com.google.protobuf" version "0.9.4"
+	id "io.github.lognet.grpc-spring-boot" version '5.1.5'
 }
 
 group = 'com.mvwaran'
 version = '0.0.1-SNAPSHOT'
 
 java {
-	sourceCompatibility = '11'
+	sourceCompatibility = '17'
 }
 
 configurations {
@@ -24,7 +26,7 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-webflux'
-	implementation 'io.github.lognet:grpc-spring-boot-starter:4.9.1'
+	implementation 'io.github.lognet:grpc-spring-boot-starter:5.1.5'
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
@@ -39,18 +41,6 @@ tasks.named('test') {
 	useJUnitPlatform()
 }
 
-protobuf {
-	protoc {
-		artifact = "com.google.protobuf:protoc:3.21.7"
-	}
-	plugins {
-		grpc {
-			artifact = 'io.grpc:protoc-gen-grpc-java:1.47.0'
-		}
-	}
-	generateProtoTasks {
-		all()*.plugins {
-			grpc {}
-		}
-	}
+grpcSpringBoot {
+	reactiveFeature.set(ReactiveFeature.REACTOR)
 }
