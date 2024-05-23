@@ -1,0 +1,9 @@
+grpc:
+  client:
+    employee-service:
+      address: static://localhost:9090
+      enable-keep-alive: true
+
+spring:
+  application:
+    name: grpc-rest-client

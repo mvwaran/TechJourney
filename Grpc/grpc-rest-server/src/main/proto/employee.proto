@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.mvwaran.grpc";
+option java_outer_classname = "EmployeeProto";
+
+service EmployeeService {
+    rpc GetAllEmployees (Empty) returns (GrpcEmployeeListResponse);
+}
+
+message Empty {}
+
+message GrpcEmployee {
+    int32 employeeId = 1;
+    string employeeName = 2;
+}
+
+message GrpcEmployeeListResponse {
+    repeated GrpcEmployee employees = 1;
+}
