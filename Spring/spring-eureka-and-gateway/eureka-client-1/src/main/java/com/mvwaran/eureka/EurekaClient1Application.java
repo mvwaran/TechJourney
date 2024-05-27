@@ -1,13 +1,13 @@
-package com.mvwaran.h2;
+package com.mvwaran.eureka;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SpringH2Application {
+public class EurekaClient1Application {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SpringH2Application.class, args);
+		SpringApplication.run(EurekaClient1Application.class, args);
 	}
 
 }
