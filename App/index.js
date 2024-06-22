@@ -18,15 +18,15 @@ const markedInstance = new marked.Marked(
 init();
 
 async function init() {
-    const publicDirPath = path.join(__dirname, 'public');
+    const distDirPath = path.join(__dirname, 'dist');
     const srcDirPath = path.join(__dirname, 'src');
-    const isPublicFolderExist = await fs.stat(publicDirPath)
+    const isDistFolderExist = await fs.stat(distDirPath)
         .then(stat => stat.isDirectory())
         .catch(() => false);
-    if (isPublicFolderExist) {
-        await fs.rmdir(publicDirPath, { recursive: true });
+    if (isDistFolderExist) {
+        await fs.rmdir(distDirPath, { recursive: true });
     }
-    await fs.mkdir(publicDirPath);
+    await fs.mkdir(distDirPath);
     const configsFileContent = await fs.readFile(path.join(srcDirPath, 'config.json'), 'utf8');
     const templateFileContent = await fs.readFile(path.join(srcDirPath, 'template.html'), 'utf8');
     const highlightJsStyle = await fs.readFile('./node_modules/highlight.js/styles/atom-one-dark.min.css', "utf8");
@@ -41,6 +41,6 @@ async function init() {
         $('title').text(heading);
         $('style').text(highlightJsStyle);
         $('main').append(markdownAsHtmlContent);
-        fs.writeFile(path.join(publicDirPath, `${htmlFileName}.html`), $.html());
+        fs.writeFile(path.join(distDirPath, `${htmlFileName}.html`), $.html());
     }
 }
