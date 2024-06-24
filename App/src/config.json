@@ -2,16 +2,16 @@
     {
         "basePath": "cryptography",
         "htmlFileName": "digital-signing",
-        "markdown": "../Cryptography/DigitalSigning/README.md"
+        "markdown": "../Journeys/Cryptography/DigitalSigning/README.md"
     },
     {
         "basePath": "cryptography",
         "htmlFileName": "encryption-decryption-using-rsa",
-        "markdown": "../Cryptography/EncryptionDecryption/RSA/README.md"
+        "markdown": "../Journeys/Cryptography/EncryptionDecryption/RSA/README.md"
     },
     {
         "basePath": "cryptography",
         "htmlFileName": "frequently-asked-questions",
-        "markdown": "../Cryptography/FAQ.md"
+        "markdown": "../Journeys/Cryptography/FAQ.md"
     }
 ]
