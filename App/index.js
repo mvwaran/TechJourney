@@ -28,19 +28,22 @@ async function init() {
     }
     await fs.mkdir(distDirPath);
     const configsFileContent = await fs.readFile(path.join(srcDirPath, 'config.json'), 'utf8');
-    const templateFileContent = await fs.readFile(path.join(srcDirPath, 'template.html'), 'utf8');
     const highlightJsStyle = await fs.readFile('./node_modules/highlight.js/styles/atom-one-dark.min.css', "utf8");
-    const $ = cheerio.load(templateFileContent);
     const configs = JSON.parse(configsFileContent);
+    for (const basePath of [...new Set(configs.map(config => config.basePath))]) {
+        await fs.mkdir(path.join(distDirPath, basePath));
+    }
     for (const config of configs) {
+        const templateFileContent = await fs.readFile(path.join(srcDirPath, 'template.html'), 'utf8');
+        const $ = cheerio.load(templateFileContent);
         const markdownFileContent = await fs.readFile(path.join(__dirname, config.markdown), 'utf8');
-        const markdownAsHtmlContent = markedInstance.parse(markdownFileContent);
+        const markdownAsHtmlContent = markedInstance.parse(markdownFileContent)
+            .replace(/href\=\".*FAQ.md/g, `href="/${config.basePath}/frequently-asked-questions.html`);
         const markdownTokens = markedInstance.lexer(markdownFileContent);
         const heading = markdownTokens.filter(token => token.type === 'heading' && token.depth === 1).map(token => token.text)[0];
-        const htmlFileName = heading.toLowerCase().replace(/\s+/g, '-');
         $('title').text(heading);
         $('style').text(highlightJsStyle);
         $('main').append(markdownAsHtmlContent);
-        fs.writeFile(path.join(distDirPath, `${htmlFileName}.html`), $.html());
+        fs.writeFile(path.join(distDirPath, config.basePath, `${config.htmlFileName}.html`), $.html());
     }
 }
